@@ -6,7 +6,6 @@ import pandas as pd
 fields = ["filename", "class", "fill"]
 classes = ["glass","cup","plate"]
 
-## use split = True if you want splitted output
 
 def json_to_csv(split=False):
     df = []
@@ -61,6 +60,7 @@ def json_to_csv(split=False):
     
     df.to_csv(output_name,index=False,header=True, sep=",")
     
-
+## use split = True if you want splitted output
+## or False if you want merged output
 json_to_csv(True)
         
