@@ -6,8 +6,11 @@ import pandas as pd
 fields = ["filename", "class", "fill"]
 classes = ["glass","cup","plate"]
 
-def json_to_csv():
+## use split = True if you want splitted output
+
+def json_to_csv(split=False):
     df = []
+    output_name = "csv_converted.csv"
     for fn in sorted(glob.glob("TDB_M/*.json")):
         f = open(fn)
         json_obj = json.load(f)
@@ -36,16 +39,28 @@ def json_to_csv():
                     temp_c.append(c)
                     temp_fill.append(fill)
                     
-                dict_row["class"] = ";".join(temp_c)
-                dict_row["fill"] = ";".join(map(str, temp_fill))
+                if (split):
+                    dict_row["class"] = temp_c
+                    dict_row["fill"] = temp_fill
+                else:
+                    dict_row["class"] = ";".join(temp_c)
+                    dict_row["fill"] = ";".join(map(str, temp_fill))
+                
                 df.append(dict_row)
     
     df = pd.DataFrame(df)
     df = df[fields]
     df = df.drop_duplicates(subset=['filename'], keep='last')
-    print(df)
-    df.to_csv('csv_converted.csv',index=False,header=True, sep=",")
+#     print(df)
+    
+    if (split):
+        df = df.set_index(['filename']).apply(pd.Series.explode).reset_index()
+        output_name = output_name[:-4]+"_splitted.csv"
+        print(output_name)
+        print(df)
+    
+    df.to_csv(output_name,index=False,header=True, sep=",")
     
 
-json_to_csv()
+json_to_csv(True)
         
