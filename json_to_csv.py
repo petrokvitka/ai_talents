@@ -20,7 +20,6 @@ def json_to_csv():
             else:
                 temp_c = []
                 temp_fill = []
-                temp = []
                 for r in json_obj[key]["regions"]:
                     if "Type" in json_obj[key]["regions"][r]["region_attributes"]:
                         c = json_obj[key]["regions"][r]["region_attributes"]["Type"].lower().strip()
@@ -45,7 +44,7 @@ def json_to_csv():
     df = df[fields]
     df = df.drop_duplicates(subset=['filename'], keep='last')
     print(df)
-    df.to_csv('csv_converted_pandas.csv',index=False,header=True, sep=",")
+    df.to_csv('csv_converted.csv',index=False,header=True, sep=",")
     
 
 json_to_csv()
