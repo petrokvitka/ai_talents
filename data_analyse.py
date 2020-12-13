@@ -1,12 +1,12 @@
 import pandas as pd
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 csv_converted_splitted = pd.read_csv("csv_converted_splitted.csv")
 print("raw shape", csv_converted_splitted.shape)
 print("raw columns", csv_converted_splitted.columns)
 
 # delete plates (reduce the size from 6477 to 6167)
-cups_glasses = csv_converted_splitted[csv_converted_splitted["class"] != "plate]
+cups_glasses = csv_converted_splitted[csv_converted_splitted["class"] != "plate"]
 
 print("we still have nans", cups_glasses["class"].unique()
 cups_glasses = cups_glasses.dropna()
@@ -51,5 +51,7 @@ dataset = dataset.append(cups_glasses_reduced[(cups_glasses_reduced["fill"] == "
 
 dataset = dataset.append(cups_glasses_reduced[(cups_glasses_reduced["fill"] == "100") & (cups_glasses_reduced["class"] == "glass")].sample(n=subset_number))
 
+dataset.reset_index(drop = True)
+
 # save to csv
-dataset.to_csv("balanced_dataset.csv")
+dataset.to_csv("balanced_dataset.csv", index = False)
