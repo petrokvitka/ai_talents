@@ -1,0 +1,30 @@
+item {
+  name: "glass_0"
+  id: 1
+  display_name: "glass_0"
+}
+item {
+  name: "glass_30"
+  id: 2
+  display_name: "glass_30"
+}
+item {
+  name: "glass_100"
+  id: 3
+  display_name: "glass_100"
+}
+item {
+  name: "cup_0"
+  id: 4
+  display_name: "cup_0"
+}
+item {
+  name: "cup_30"
+  id: 5
+  display_name: "cup_30"
+}
+item {
+  name: "cup_100"
+  id: 6
+  display_name: "cup_100"
+}
