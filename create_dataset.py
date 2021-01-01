@@ -2,6 +2,10 @@ import pandas as pd
 import glob
 import json
 import os
+import cv2
+
+import sys
+import matplotlib.pyplot as plt
 
 fields = ["filename", "class", "fill", "x", "y", "width", "height"]
 classes = ["glass", "cup", "plate"]
@@ -75,7 +79,7 @@ def json_to_csv(output_name, input_dir):
     output_file.to_csv(output_name, index = False, header = False)
 
 
-def separate_classes(input_csv):
+def separate_train_test(input_csv):
     df = pd.read_csv(input_csv, index_col = False)
     print(input_csv, "shape:", df.shape)
 
@@ -94,23 +98,85 @@ def separate_classes(input_csv):
     test.to_csv(os.path.splitext(input_csv)[0] + "_test.csv", index = False)
 
 
-json_to_csv("tdb_m.csv", "TDB_M")
-separate_classes("tdb_m.csv")
+#json_to_csv("tdb_m.csv", "TDB_M")
+#separate_train_test("tdb_m.csv")
 
-json_to_csv("tdb_s1.csv", "TDB_S/1")
-separate_classes("tdb_s1.csv")
+#json_to_csv("tdb_s1.csv", "TDB_S/1")
+#separate_train_test("tdb_s1.csv")
 
-json_to_csv("tdb_s2.csv", "TDB_S/2")
-separate_classes("tdb_s2.csv")
+#json_to_csv("tdb_s2.csv", "TDB_S/2")
+#separate_train_test("tdb_s2.csv")
 
-json_to_csv("tdb_s3.csv", "TDB_S/3")
-separate_classes("tdb_s3.csv")
+#json_to_csv("tdb_s3.csv", "TDB_S/3")
+#separate_train_test("tdb_s3.csv")
 
-json_to_csv("tdb_s4.csv", "TDB_S/4")
-separate_classes("tdb_s4.csv")
+#json_to_csv("tdb_s4.csv", "TDB_S/4")
+#separate_train_test("tdb_s4.csv")
 
 # now save the names of each subset to temporary file
 # tail -n+2 tdb_m_test.csv | cut -d, -f1 > "test.csv"
 
 # now create folders with needed images only
 # for i in $(cat test.csv); do temp="${i%\"}"; temp="${temp#\"}"; cp TDB_M/$temp Test; done
+
+
+def crop_separate_classes(input_dir, img_count, output_dir):
+
+    for fill_level in acceptable_fills:
+        new_dir = os.path.join(output_dir, fill_level)
+        if not os.path.exists(new_dir):
+            os.makedirs(new_dir)
+            print("Created a new directory", new_dir)
+        #else:
+            #print("The directory {}  will be overwritten.".format(new_dir))
+
+    for f in os.listdir(input_dir):
+        if f.endswith(".csv"):
+            df = pd.read_csv(os.path.join(input_dir, f))
+
+            count = 0
+
+            for index, row in df.iterrows():
+
+                if os.path.exists(os.path.join(input_dir, row['filename'])):
+                    #print("working with file:", row['filename'])
+
+                    image = cv2.imread(os.path.join(input_dir, row['filename']), cv2.COLOR_BGR2RGB)
+
+                    crop_image = image[int(row['y']) : int(row['y']) + int(row['height']),
+                                        int(row['x']): int(row['x']) + int(row['width'])]
+                    #plt.imshow(crop_image)
+                    #plt.show()
+
+                    crop_image_name = os.path.join(output_dir, str(row['fill']), str(img_count)) + ".jpg"
+                    cv2.imwrite(crop_image_name, crop_image)
+
+                    img_count += 1
+
+                else:
+                    print("file {} from {} does not exist".format(row['filename'], os.path.join(input_dir, f)))
+
+                #count += 1
+
+                #if count == 20:
+                #    sys.exit()
+
+    return(img_count)
+
+
+    #df = pd.read_csv(os.path, index_col = False)
+    #print(input_csv, "shape:", df.shape)
+
+img_count = 0
+img_count = crop_separate_classes("../test_train_data/TDB_M_test", img_count, "../test_train_data/test")
+img_count = crop_separate_classes("../test_train_data/TDB_S1_test", img_count, "../test_train_data/test")
+img_count = crop_separate_classes("../test_train_data/TDB_S2_test", img_count, "../test_train_data/test")
+img_count = crop_separate_classes("../test_train_data/TDB_S3_test", img_count, "../test_train_data/test")
+img_count = crop_separate_classes("../test_train_data/TDB_S4_test", img_count, "../test_train_data/test")
+
+
+img_count = crop_separate_classes("../test_train_data/TDB_M_train", img_count, "../test_train_data/train")
+img_count = crop_separate_classes("../test_train_data/TDB_S1_train", img_count, "../test_train_data/train")
+img_count = crop_separate_classes("../test_train_data/TDB_S2_train", img_count, "../test_train_data/train")
+img_count = crop_separate_classes("../test_train_data/TDB_S3_train", img_count, "../test_train_data/train")
+img_count = crop_separate_classes("../test_train_data/TDB_S4_train", img_count, "../test_train_data/train")
