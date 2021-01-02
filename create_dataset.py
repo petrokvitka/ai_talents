@@ -145,21 +145,27 @@ def crop_separate_classes(input_dir, img_count, output_dir):
 
                     crop_image = image[int(row['y']) : int(row['y']) + int(row['height']),
                                         int(row['x']): int(row['x']) + int(row['width'])]
-                    #plt.imshow(crop_image)
-                    #plt.show()
 
-                    crop_image_name = os.path.join(output_dir, str(row['fill']), str(img_count)) + ".jpg"
-                    cv2.imwrite(crop_image_name, crop_image)
+                    if not 0 in crop_image.shape:
 
-                    img_count += 1
+                        #plt.imshow(crop_image)
+                        #plt.show()
+
+                        # resize to the shape 32x32
+                        resized_image = cv2.resize(crop_image, (32, 32), interpolation = cv2.INTER_AREA)
+
+                        final_image_name = os.path.join(output_dir, str(row['fill']), str(img_count)) + ".jpg"
+                        cv2.imwrite(final_image_name, resized_image)
+
+                        img_count += 1
 
                 else:
                     print("file {} from {} does not exist".format(row['filename'], os.path.join(input_dir, f)))
 
-                #count += 1
+                count += 1
 
-                #if count == 20:
-                #    sys.exit()
+                if count == 40:
+                    sys.exit()
 
     return(img_count)
 
@@ -180,3 +186,6 @@ img_count = crop_separate_classes("../test_train_data/TDB_S1_train", img_count, 
 img_count = crop_separate_classes("../test_train_data/TDB_S2_train", img_count, "../test_train_data/train")
 img_count = crop_separate_classes("../test_train_data/TDB_S3_train", img_count, "../test_train_data/train")
 img_count = crop_separate_classes("../test_train_data/TDB_S4_train", img_count, "../test_train_data/train")
+
+
+#for file in $(ls -p | grep -v / | tail -2000); do mv $file ./100; done
