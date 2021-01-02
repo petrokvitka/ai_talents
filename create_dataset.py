@@ -154,18 +154,20 @@ def crop_separate_classes(input_dir, img_count, output_dir):
                         # resize to the shape 32x32
                         resized_image = cv2.resize(crop_image, (32, 32), interpolation = cv2.INTER_AREA)
 
+                        gray_image = cv2.cvtColor(resized_image, cv2.COLOR_RGB2GRAY)
+
                         final_image_name = os.path.join(output_dir, str(row['fill']), str(img_count)) + ".jpg"
-                        cv2.imwrite(final_image_name, resized_image)
+                        cv2.imwrite(final_image_name, gray_image)
 
                         img_count += 1
 
                 else:
                     print("file {} from {} does not exist".format(row['filename'], os.path.join(input_dir, f)))
 
-                count += 1
+                #count += 1
 
-                if count == 40:
-                    sys.exit()
+                #if count == 40:
+                #    sys.exit()
 
     return(img_count)
 
