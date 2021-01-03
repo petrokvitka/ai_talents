@@ -257,5 +257,7 @@ def object_detection(input_dir, output_dir, appendix, max_number):
                                 return("done")
 
 
-done = object_detection("../test_train_data/TDB_M_test", "../objects_detection/data/", "train", 80)
-done = object_detection("../test_train_data/TDB_M_test", "../objects_detection/data/", "valid", 20)
+done = object_detection("../test_train_data/TDB_M_train", "../objects_detection/new/", "train", 240)
+done = object_detection("../test_train_data/TDB_M_train", "../objects_detection/new/", "val", 60)
+
+# ~/aitalents/objects_detection/yolov5$ python train.py --batch 16 --img 80 --epochs 3 --data ../new_data_yaml.yml --cfg ./models/yolov5s.yaml --weights '' --name cups_glasses
