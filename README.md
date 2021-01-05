@@ -3,5 +3,5 @@ This is a repository for our team's submission for the aiTalents program from Te
 
 testestsest
 
-TF1 Google Colab: https://colab.research.google.com/drive/1INIRFU4PT4e_lu0NeB7YHrzlF2uFmjB6?usp=sharing
-TF1 one is not good enough because of high loss
+TF1 Google Colab: https://colab.research.google.com/drive/1PaJUNmo6Ys7_2Sm7OlLGmZljoOVD69w-?usp=sharing
+TF1 one is not good enough because of high loss on the inception(8), but on the mobilenet fpn, it's better (0.7)
