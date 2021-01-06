@@ -12,4 +12,7 @@ Now that you have cloned the repository with the prototype, change into the dire
 
 Now all you need is to run the [index.html file](./index.html) in your browser! 
 
+To check how the refill option works, please use test images in the [added directory](./test_images).
+
 That's it! Enjoy your experience with LampixEntertainment. :heart_eyes:
+
