@@ -181,6 +181,13 @@
         document.getElementById("game").style.display = "none";
       }
 
+      if (newFrameId == "121w0") {
+        console.log("NEWS");
+        document.getElementById("news").style.display = "inline-block";
+      } else {
+        document.getElementById("news").style.display = "none";
+      }
+
       let oneX = "images/" + newFrameId + "-" + frames[newFrameId].name + ".png";
       document.getElementById("content").className = newFrameId;
       document.getElementById("content").src = oneX;
@@ -218,7 +225,8 @@
 <img id="content" src=""/>
 
 
-<iframe src="game.html" height="380" width="330" title="Iframe Example" style="margin-top:-720px; margin-left:520px; position:absolute; display:none" id="game"></iframe>
+<iframe src="game.html" height="380" width="330" title="Minesweeper" style="margin-top:-720px; margin-left:520px; position:absolute; display:none" id="game"></iframe>
+<iframe src="news.html" height="400" width="800" title="News" style="margin-top:300px; margin-left:-1100px; position:absolute; display:none" id="news"></iframe>
 
 
 </body>
