@@ -208,8 +208,6 @@ def object_detection(input_dir, output_dir, appendix, max_number):
                     image = cv2.imread(os.path.join(input_dir, row['filename']), cv2.COLOR_BGR2RGB)
 
                     if 0 not in image.shape:
-                        gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-
                         file_df = df[df['filename'] == row['filename']]
 
                         full_height = image.shape[0]
@@ -247,6 +245,7 @@ def object_detection(input_dir, output_dir, appendix, max_number):
                         txt_file.close()
 
                         if os.path.exists(final_txt_name):
+                            gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
                             final_img_name = os.path.join(output_dir, "images", appendix, str(row['filename']))
                             cv2.imwrite(final_img_name, gray_image)
 
@@ -261,3 +260,5 @@ done = object_detection("../test_train_data/TDB_M_train", "../objects_detection/
 done = object_detection("../test_train_data/TDB_M_train", "../objects_detection/new/", "val", 60)
 
 # ~/aitalents/objects_detection/yolov5$ python train.py --batch 16 --img 80 --epochs 3 --data ../new_data_yaml.yml --cfg ./models/yolov5s.yaml --weights '' --name cups_glasses
+
+#(object_detection) anastasiia@anastasiia-HP-ProBook-440-G3:~/aitalents/objects_detection/yolov5$ python train.py --batch 16 --img 200 --epochs 300 --data ../new_data_yaml.yml --cfg ./models/yolov5s.yaml --weights '' --name cups_glasses
