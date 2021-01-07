@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Glass and Cup Detector</title>
+  </head>
+  <body>
+    <div style="margin: 20px;">
+      <div style="padding: 10px;">
+        <input
+          id="modelimage"
+          type="file"
+          name="filename"
+          accept="image/gif, image/jpeg, image/png"
+          onchange="loadImage(this);"
+          disabled
+        />
+      </div>
+      <div id="message"></div>
+      <div style="padding: 10px;">
+        <div
+          id="capimg"
+          style="
+            position: relative;
+            display: inline-block;
+            min-width: 600px;
+            vertical-align: top;
+          "
+        >
+          <canvas
+            id="canvasimage"
+            style="z-index: 1; position: absolute; left: 0px; top: 0px;"
+          ></canvas>
+          <canvas
+            id="canvassegments"
+            style="z-index: 2; position: absolute; left: 0px; top: 0px;"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0"></script>
+    <!-- <script src="object-detector.js"></script> -->
+    <script src="object-detector-tf2.js"></script>
+  </body>
+</html>
