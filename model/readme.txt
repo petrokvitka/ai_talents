@@ -1,0 +1,2 @@
+-The model (fine_tuned_model_tf2_fpnlite) is only works on TF2, not TF1
+-tfjs is the tensorflow js model that have been converted from the fine_tuned_model_tf2_fpnlite
