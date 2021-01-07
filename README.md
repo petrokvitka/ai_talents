@@ -2,8 +2,6 @@
 
 Here we present our prototype for LampixEntertainment.
 
-You could also try LampixEntertainment Prototype in our online App [here](https://lampix-entertainment.netlify.app/).
-
 You don't need to worry about a complicated installation :smiley: LampixEntertainment offers you a possibility to try all current features of the prototype in your browser. 
 You can experience it now by visiting [lampix-entertainment.netlify.app](https://lampix-entertainment.netlify.app/)
 
