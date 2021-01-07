@@ -2,7 +2,10 @@
 
 Here we present our prototype for LampixEntertainment.
 
-You don't need to worry about a complicated installation :smiley: LampixEntertainment offers you a possibility to try all current features of the prototype in your browser. Just follow these steps:
+You don't need to worry about a complicated installation :smiley: LampixEntertainment offers you a possibility to try all current features of the prototype in your browser. 
+You can experience it now by visiting [lampix-entertainment.netlify.app](https://lampix-entertainment.netlify.app/)
+
+Or if you want tou try it on your local machine, you can follow these steps:
 
 `git clone https://github.com/petrokvitka/ai_talents`
 
